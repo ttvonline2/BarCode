@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen2">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="Scan"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:id="@+id/bt_scan"
+        android:background="@color/colorAccent"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="45dp"
+        android:text="Hello"
+        android:textSize="25dp"
+        android:id="@+id/tv_itemcode"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/tv_user"
+        android:hint="User 1001"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/bt_check"
+        android:id="@+id/tv_data"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimary"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Check"
+        android:textSize="30dp"
+        android:background="@color/colorAccent"
+        android:layout_below="@+id/bt_scan"
+        android:layout_marginTop="10dp"
+        android:id="@+id/bt_check"
+        />
+
+<LinearLayout
+    android:id="@+id/layout_step"
+    android:visibility="invisible"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/tv_data"
+    android:orientation="horizontal"
+    >
+    <Button android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Step 1"
+        android:id="@+id/bt_s1"
+        />
+    <Button android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Step 2"
+        android:id="@+id/bt_s2"
+        />
+    <Button android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Step 3"
+        android:id="@+id/bt_s3"
+        />
+    <Button android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Step 4"
+        android:id="@+id/bt_s4"
+        />
+
+</LinearLayout>
+
+
+
+</RelativeLayout>

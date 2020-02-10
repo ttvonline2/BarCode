@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="20dp"
+    android:hint="Your Account"
+    android:id="@+id/et_account"
+/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_below="@+id/et_account"
+        android:hint="Password"
+        android:id="@+id/et_password"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_password"
+        android:textSize="25dp"
+        android:text="Login"
+        android:background="@color/colorAccent"
+        android:id="@+id/bt_login"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_below="@id/bt_login"
+        android:hint="Status"
+        android:id="@+id/tv_status"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_status"
+        android:id="@+id/bt_nextscreen"
+        android:textSize="20dp"
+        android:text="555"
+        android:onClick="btclick"
+        />
+</RelativeLayout>

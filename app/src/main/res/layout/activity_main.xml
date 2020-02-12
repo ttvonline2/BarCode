@@ -34,16 +34,7 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:layout_below="@id/bt_login"
-        android:hint="Status"
+        android:hint="Server Offline"
         android:id="@+id/tv_status"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_status"
-        android:id="@+id/bt_nextscreen"
-        android:textSize="20dp"
-        android:text="555"
-        android:onClick="btclick"
         />
 </RelativeLayout>

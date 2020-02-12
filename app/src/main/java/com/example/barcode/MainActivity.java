@@ -21,15 +21,19 @@ import java.net.Socket;
 @SuppressLint("SetTextI18n")
 public class MainActivity extends AppCompatActivity
 {
-    String Acc;
-    final public static String strDataReceive = "strStatus";
+    public static String Acc;
+    public static String SERVER_IP = "10.12.20.77";
+    public static int SERVER_PORT = 100;
+    // Class Thread Connect to server
+    public static DataOutputStream sendDos;
+    public static Socket socketClient;
+    public  static boolean blNextScreen = false;
+    public  static int int_Pos = -1;
+
     Thread ThreadToServer = null;
     EditText etAccount, etPassword;
-    TextView tvStatus;
+    public static TextView tvStatus;
     Button btLogin;
-    String SERVER_IP = "10.12.20.77";
-    int SERVER_PORT = 100;
-    boolean AccessScreen2 = false;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -43,9 +47,6 @@ public class MainActivity extends AppCompatActivity
         ThreadToServer = new Thread(new ConnectServer());
         ThreadToServer.start();
 
-        // Start loop for next Screen screen 2;
-        Thread Screen2 = new Thread(new Screen2());
-        Screen2.start();
 
         // Button Login Click
         btLogin.setOnClickListener(new View.OnClickListener()
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity
             {
                 String Pass = etPassword.getText().toString().trim();
                 Acc = etAccount.getText().toString().trim();
+
+
                 if(Pass.isEmpty() || Acc.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(), "Input Account & Password", Toast.LENGTH_LONG).show();
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     if(socketClient != null)
                     {
-                        String Acc_Pass = Acc + "|" +  Pass;
+                        String Acc_Pass = Acc + "|" +  Pass +"'";
                         new Thread(new SendData(Acc_Pass)).start();
                     }
                     else
@@ -72,24 +75,20 @@ public class MainActivity extends AppCompatActivity
                         tvStatus.setText("Contract to IT for Opening Server");
                     }
                 }
+
+
             }
         });
     }
-
     public void btclick (View view)
     {
         String value="Hello world";
         Intent i = new Intent(MainActivity.this, screen2.class);
         i.putExtra("key",value);
         startActivity(i);
-
-        //Intent intent = new Intent(MainActivity.this, screen2.class);
-        //startActivity(intent);
     }
 
     // Class Thread Connect to server
-    private DataOutputStream sendDos;
-    public Socket socketClient;
     class ConnectServer implements Runnable {
         public void run()
         {
@@ -121,20 +120,21 @@ public class MainActivity extends AppCompatActivity
     class ClientReceive implements  Runnable
     {
         String line;
+        boolean allow = true;
         @Override
         public void run()
         {
-            while (socketClient.isConnected())
+            while (socketClient.isConnected() & allow)
             {
-                BufferedReader reader;
+                final BufferedReader reader;
                 try
                 {
-                    Log.d("vang", "Waiting ReadLine");
+                    Log.d("vang", "Waiting ReadLine1");
                     reader = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
                     line = reader.readLine();    // reads a line of text
+
                     if(line != null)
                     {
-                        Parameters.Para_DataSend(line);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run()
@@ -142,11 +142,35 @@ public class MainActivity extends AppCompatActivity
                                 tvStatus.setText(line);
                                 char c = line.charAt(line.length()-1);
                                 int b =  (int) c;
+                                Log.d("vang", line);
                                 if(b == 63)   // "?"
                                 {
+                                    allow = false;
+                                    blNextScreen = true;
                                     Intent in = new Intent(getBaseContext(), screen2.class);
-                                    in.putExtra("vang",line);
                                     startActivity(in);
+                                }
+                                else if(b == 33)
+                                {
+                                    Toast.makeText(getApplicationContext(),
+                                            "Your Account or Password is incorrect",
+                                            Toast.LENGTH_LONG).show();
+                                }
+                                else if(b == 49)
+                                {
+                                    int_Pos = 1;
+                                }
+                                else if(b == 50)
+                                {
+                                    int_Pos = 2;
+                                }
+                                else if(b == 51)
+                                {
+                                    int_Pos = 3;
+                                }
+                                else if(b == 52)
+                                {
+                                    int_Pos = 4;
                                 }
 
                             }
@@ -157,6 +181,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     e.printStackTrace();
                 }
+
             }
         }
     }
@@ -187,22 +212,6 @@ public class MainActivity extends AppCompatActivity
                     Log.d("vang", message);
                 }
             });
-        }
-    }
-
-    // Screen 2
-    class Screen2 implements Runnable
-    {
-        @Override
-        public void run()
-        {
-            while (true)
-            {
-                if(AccessScreen2)
-                {
-
-                }
-            }
         }
     }
 
